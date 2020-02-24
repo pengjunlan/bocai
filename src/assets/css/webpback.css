@@ -1,0 +1,43 @@
+@media screen and (orientation: portrait) {
+    html{
+        width : 100% ;
+        height : 100% ;
+        background-color: white ;
+        overflow : hidden;
+    }
+    body{
+        width : 100% ;
+        height : 100% ;
+        background-color: #315e81 ;
+        overflow : hidden;
+    }
+    #print{
+        position : absolute ;
+        background-color: #315e81 ;
+    }
+}
+@media screen and (orientation: landscape) {
+    html{
+        width : 100% ;
+        height : 100% ;
+        background-color: white ;
+    }
+    body{
+        width : 100% ;
+        height : 100% ;
+        background-color: white ;
+    }
+    #print{
+        position : absolute ;
+        top : 0 ;
+        left : 0 ;
+        width : 100% ;
+        height : 100% ;
+        background-color: #315e81;
+    }
+}
+#print p {
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+}
