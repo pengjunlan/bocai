@@ -35,7 +35,7 @@
 
 <style scoped>
 .duzuo>div{
-    background: #648844;
+    /*background: #648844;*/
 }
 .duzuo>div>div{
     position: relative;
@@ -48,6 +48,6 @@
     left: 2px;
     right: 2px;
     bottom: 2px;
-    background: #16418a;
+    /*background: #16418a;*/
 }
 </style>
