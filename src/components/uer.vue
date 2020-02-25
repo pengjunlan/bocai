@@ -1,6 +1,7 @@
 <template>
     <div class="user">
-        <div class="u">
+        <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.userinfo" get-container="body">userinfo</van-popup>
+        <div class="u"  @click="userinfo()">
             <div>
                 <div class="touxiang">
                     <img src="../assets/img/touxiang/tou1.png" alt="">
@@ -17,14 +18,27 @@
 </template>
 
 <script>
+    import { Popup } from "vant"
     export default {
         name: "uer",
         components:{
-
+            [Popup.name]:Popup
+        },
+        data:()=>{
+          return{
+              popup:{
+                  userinfo:false,
+              }
+          }
+        },
+        methods:{
+            userinfo:function(){
+                console.log(55)
+                this.popup.userinfo = true
+            }
         }
     }
 </script>
-
 <style scoped>
 
 .user{

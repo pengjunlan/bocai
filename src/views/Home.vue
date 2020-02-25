@@ -1,5 +1,9 @@
 <template>
   <div class="home">
+<!--      弹框-->
+      <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming">内容</van-popup>
+      <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia">wangjia</van-popup>
+      <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing">xiangqing</van-popup>
 <!--      顶部-->
       <div class="top">
         <div>
@@ -12,14 +16,14 @@
                50请下注
             </div>
             <div class="list">
-                <div class="menulist">
+                <div class="menulist" @click="shuoming()">
                     <div :style="{backgroundImage: 'url('+img.shuoming+')'}"></div>
                 </div>
-                <div class="menulist">
+                <div class="menulist" @click="wangjia()">
                     <div :style="{backgroundImage: 'url('+img.wangjia+')'}"></div>
                 </div>
-                <div class="menulist">
-                    <div :style="{backgroundImage: 'url('+img.xiangqing+')'}"></div>
+                <div class="menulist" @click="xiangqing()">
+                    <div :style="{backgroundImage: 'url('+img.xiangqing+')'}" ></div>
                 </div>
             </div>
         </div>
@@ -27,7 +31,7 @@
 <!--      左边-->
       <div class="left">
           <div>
-              <div class="user">
+              <div class="user" >
                   <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key"></user>
               </div>
               <div class="my-user">
@@ -80,6 +84,76 @@
 <!--      <van-button type="danger">危险按钮</van-button>-->
   </div>
 </template>
+<script>
+    import user from '../components/uer'
+    import duzhuo from "../components/duzhuo";
+    import chouma from "../components/chouma";
+    import wangjia from '../assets/img/wanjiananliu.png'
+    import shuoming from '../assets/img/shuominganliu.png'
+    import xiangqing from '../assets/img/xiangqinganliu.png'
+    import fanhuei from '../assets/img/fanhueianliu.png'
+    import { Button,Popup } from "vant"
+    export default {
+        name: 'Home',
+        components: {
+            user,
+            duzhuo,
+            chouma,
+            [Button.name]:Button,
+            [Popup.name]:Popup,
+        },
+        data:()=>{
+            return{
+                img:{
+                    wangjia,shuoming,xiangqing,fanhuei
+                },
+                touxiang:{
+                    left:[
+                        {},
+                        {},
+                        {}
+                    ],
+                    right:[
+                        {},
+                        {},
+                        {}
+                    ],
+                    mytou:{
+
+                    }
+                },
+                fama:[
+                    {},
+                    {},
+                    {},
+                    {},
+                    {},
+                ],
+                popup:{
+                    shuoming:false,
+                    wangjia:false,
+                    xiangqing:false,
+                }
+            }
+        },
+        methods: {
+            shuoming:function(){
+                console.log(55)
+                this.popup.shuoming = true
+            },
+            wangjia:function(){
+                console.log(55)
+                this.popup.wangjia = true
+            },
+            xiangqing:function(){
+                console.log(55)
+                this.popup.xiangqing = true
+            },
+
+        }
+    }
+</script>
+
 <style scoped>
   .home{
       width: 100%;
@@ -305,52 +379,3 @@
   }
 
 </style>
-<script>
-    import user from '../components/uer'
-    import duzhuo from "../components/duzhuo";
-    import chouma from "../components/chouma";
-    import wangjia from '../assets/img/wanjiananliu.png'
-    import shuoming from '../assets/img/shuominganliu.png'
-    import xiangqing from '../assets/img/xiangqinganliu.png'
-    import fanhuei from '../assets/img/fanhueianliu.png'
-    import { Button } from "vant"
-    export default {
-      name: 'Home',
-        components: {
-            user,
-            duzhuo,
-            chouma,
-            [Button.name]:Button,
-        },
-      data:()=>{
-          return{
-              img:{
-                  wangjia,shuoming,xiangqing,fanhuei
-              },
-              touxiang:{
-                  left:[
-                      {},
-                      {},
-                      {}
-                  ],
-                  right:[
-                      {},
-                      {},
-                      {}
-                  ],
-                  mytou:{
-
-                  }
-              },
-              fama:[
-                  {},
-                  {},
-                  {},
-                  {},
-                  {},
-              ]
-          }
-      },
-
-    }
-</script>
