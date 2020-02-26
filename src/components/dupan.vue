@@ -34,7 +34,8 @@
     .dupan>div:first-child{
         position: relative;
         height: 15%;
-        background: #42b983;
+        /*background: #42b983;*/
+        background: linear-gradient(to right, #2cb15b, #f3dda8);
     }
     .dupan>div:first-child>div{
         position: absolute;
@@ -73,10 +74,10 @@
     .dupan>div:last-child{
         height: 85%;
         font-size: 8vh;
-        color: white;
+        color: #c2a877;
         line-height: 20vh;
         text-align: center;
-        text-shadow:5px 5px 10px #5a545c;
-        background: #b9215e;
+        /*text-shadow:5px 5px 10px #5a545c;*/
+        background: #f3dda8;
     }
 </style>

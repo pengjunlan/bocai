@@ -1,7 +1,8 @@
 <template>
     <div class="user">
         <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.userinfo" get-container="body"><popuserinfo></popuserinfo></van-popup>
-        <div class="u"  @click="userinfo()">
+<!--        <div class="u"  @click="userinfo()">-->
+        <div class="u">
             <div>
                 <div class="touxiang">
                     <img src="../assets/img/touxiang/tou1.png" alt="">

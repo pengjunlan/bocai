@@ -4,16 +4,19 @@
       <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming"><popshuoming></popshuoming></van-popup>
       <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia"><popwangjia></popwangjia></van-popup>
       <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing"><popxiangqing></popxiangqing></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.qiangzhuang"><qiangzhuang></qiangzhuang></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaishixiazhu"><kaishixiazhu></kaishixiazhu></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.tingzhixiazhu"><tingzhixiazhu></tingzhixiazhu></van-popup>
 <!--      顶部-->
       <div class="top">
         <div>
             <div class="back">
-                <div class="menulist">
-                    <div :style="{backgroundImage: 'url('+img.fanhuei+')'}"></div>
-                </div>
+<!--                <div class="menulist">-->
+<!--                    <div :style="{backgroundImage: 'url('+img.fanhuei+')'}"></div>-->
+<!--                </div>-->
             </div>
-            <div class="time">
-               50请下注
+            <div class="time" v-show="isdiplaytime">
+               {{time}}请下注
             </div>
             <div class="list">
                 <div class="menulist" @click="shuoming()">
@@ -46,13 +49,13 @@
                   <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key" jiazhufangmiang="right"></user>
               </div>
               <div class="start-buttom">
-                  <div>
-                      <div>
-                          <div>
-<!--                              玩家-->
-                          </div>
-                      </div>
-                  </div>
+<!--                  <div>-->
+<!--                      <div>-->
+<!--                          <div>-->
+<!--&lt;!&ndash;                              玩家&ndash;&gt;-->
+<!--                          </div>-->
+<!--                      </div>-->
+<!--                  </div>-->
 <!--                  <div>-->
 <!--                      <div>-->
 <!--                          <div>开始</div>-->
@@ -81,9 +84,6 @@
               </div>
           </div>
       </div>
-<!--      <van-button type="info">信息按钮</van-button>-->
-<!--      <van-button type="warning">警告按钮</van-button>-->
-<!--      <van-button type="danger">危险按钮</van-button>-->
   </div>
 </template>
 <script>
@@ -97,16 +97,24 @@
     import shuoming from '../assets/img/shuominganliu.png';
     import xiangqing from '../assets/img/xiangqinganliu.png';
     import fanhuei from '../assets/img/fanhueianliu.png';
+    import qiangzhuang from '../components/qiangzhuang';
+    import kaishixiazhu from '../components/kaishixiazhu';
+    import tingzhixiazhu from '../components/tingzhixiazhu';
     import { Button,Popup } from "vant";
+    import store from '../store'
     export default {
+        store,
         name: 'Home',
         components: {
+            kaishixiazhu,
+            tingzhixiazhu,
             popxiangqing,
             popwangjia,
             popshuoming,
             user,
             duzhuo,
             chouma,
+            qiangzhuang,
             [Button.name]:Button,
             [Popup.name]:Popup,
         },
@@ -141,24 +149,55 @@
                     shuoming:false,
                     wangjia:false,
                     xiangqing:false,
-                }
+                    qiangzhuang:true,
+                    kaishixiazhu:false,
+                    tingzhixiazhu:false
+                },
+                time:5,
+                isdiplaytime:false
+            }
+        },
+        watch:{
+            'popup.qiangzhuang':function(val){
+               if(val == false){
+                   this.popup.kaishixiazhu=true
+               }
             }
         },
         methods: {
+            tingzhixiazhu:function(){
+                this.popup.tingzhixiazhu=true;
+            },
+            start:function(){
+                var e = this;
+                setTimeout(function(){
+                    e.popup.kaishixiazhu=false
+                    e.daojishi()
+                },1000)
+            },
+            daojishi:function(){
+                this.isdiplaytime = true;
+                var e = this;
+                setTimeout(function(){
+                    if(e.time>1){
+                        e.time--
+                        e.daojishi()
+                    }else{
+                        e.isdiplaytime=false;
+                        e.tingzhixiazhu();
+                    }
+                },1000)
+            },
             shuoming:function(){
-                console.log(55)
                 this.popup.shuoming = true
             },
             wangjia:function(){
-                console.log(55)
                 this.popup.wangjia = true
             },
             xiangqing:function(){
-                console.log(55)
                 this.popup.xiangqing = true
-            },
-
-        }
+            }
+        },
     }
 </script>
 
@@ -186,9 +225,13 @@
       height: 90%;
       /*background: #42b983;*/
   }
-  .back,.time,.list{
+  .back,.time{
       height: 100%;
       float: left;
+  }
+  .list{
+      height: 100%;
+      float: right;
   }
   .back,.list{
       width: 40%;
@@ -240,9 +283,7 @@
        margin-right:5%;
    }
    .menulist{
-
         position: relative;
-
         width: 15%;
         height: 100%;
    }
@@ -342,7 +383,9 @@
       left: 4%;
       right: 4%;
       bottom: 4%;
-      /*border:solid #69baff 5px*/
+      border:solid #f3dda8 5px;
+      box-shadow: 0px 0px 4px black;
+      background: #593b22;
   }
   .du-zhuo{
       position: absolute;
