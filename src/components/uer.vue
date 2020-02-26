@@ -1,6 +1,6 @@
 <template>
     <div class="user">
-        <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.userinfo" get-container="body">userinfo</van-popup>
+        <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.userinfo" get-container="body"><popuserinfo></popuserinfo></van-popup>
         <div class="u"  @click="userinfo()">
             <div>
                 <div class="touxiang">
@@ -13,15 +13,18 @@
             <div class="qian">
                 <div>asdfasd</div>
             </div>
+            <div class="jiazhu" :class="{jiazhuleft:jiazhufangmiang=='left',jiazhuright:jiazhufangmiang=='right'}">+<span>123456</span></div>
         </div>
     </div>
 </template>
 
 <script>
+    import popuserinfo from '../components/userinfo'
     import { Popup } from "vant"
     export default {
         name: "uer",
         components:{
+            popuserinfo,
             [Popup.name]:Popup
         },
         data:()=>{
@@ -31,6 +34,7 @@
               }
           }
         },
+        props:['jiazhu','jiazhufangmiang'],
         methods:{
             userinfo:function(){
                 console.log(55)
@@ -40,16 +44,32 @@
     }
 </script>
 <style scoped>
-
-.user{
-    /*height:100%;*/
-    /*width: 100%;*/
-}
-.u{
-    height:100%;
-    width: 100%;
-    /*background: #5c728a;*/
-}
+    .user{
+        /*height:100%;*/
+        /*width: 100%;*/
+    }
+    .u{
+        position: relative;
+        height:100%;
+        width: 100%;
+        /*background: #5c728a;*/
+    }
+    .jiazhuleft{
+        right: -40%;
+    }
+    .jiazhuright{
+        left: -40%;
+    }
+    .jiazhu{
+        position: absolute;
+        top: 0px;
+        font-size: 5vh;
+        z-index: 1000;
+        /*border:solid red 1px;*/
+        line-height: 21vh;
+        height: 100%;
+        font-weight: bold;
+    }
    .u>div:first-child{
        height: 50%;
        /*background: #8e42b5;*/

@@ -36,8 +36,12 @@
         background-color: #315e81;
     }
 }
-#print p {
+#print>p {
     margin: auto;
     margin-top: 20px;
     text-align: center;
+}
+
+.popcenten{
+    padding: 1%;
 }

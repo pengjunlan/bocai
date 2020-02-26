@@ -1,9 +1,9 @@
 <template>
   <div class="home">
 <!--      弹框-->
-      <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming">内容</van-popup>
-      <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia">wangjia</van-popup>
-      <van-popup closeable close-icon="close"  :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing">xiangqing</van-popup>
+      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming"><popshuoming></popshuoming></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia"><popwangjia></popwangjia></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing"><popxiangqing></popxiangqing></van-popup>
 <!--      顶部-->
       <div class="top">
         <div>
@@ -32,10 +32,10 @@
       <div class="left">
           <div>
               <div class="user" >
-                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key"></user>
+                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key" jiazhufangmiang="left"></user>
               </div>
               <div class="my-user">
-                  <user class="mytou"></user>
+                  <user class="mytou" jiazhufangmiang="left"></user>
               </div>
           </div>
       </div>
@@ -43,19 +43,21 @@
       <div class="right">
           <div>
               <div class="user">
-                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key"></user>
+                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key" jiazhufangmiang="right"></user>
               </div>
               <div class="start-buttom">
                   <div>
                       <div>
-                          <div>玩家</div>
+                          <div>
+<!--                              玩家-->
+                          </div>
                       </div>
                   </div>
-                  <div>
-                      <div>
-                          <div>开始</div>
-                      </div>
-                  </div>
+<!--                  <div>-->
+<!--                      <div>-->
+<!--                          <div>开始</div>-->
+<!--                      </div>-->
+<!--                  </div>-->
               </div>
           </div>
       </div>
@@ -85,17 +87,23 @@
   </div>
 </template>
 <script>
+    import popxiangqing from '../components/xiangqing';
+    import popwangjia from '../components/wangjia';
+    import popshuoming from '../components/shuoming';
     import user from '../components/uer'
     import duzhuo from "../components/duzhuo";
     import chouma from "../components/chouma";
-    import wangjia from '../assets/img/wanjiananliu.png'
-    import shuoming from '../assets/img/shuominganliu.png'
-    import xiangqing from '../assets/img/xiangqinganliu.png'
-    import fanhuei from '../assets/img/fanhueianliu.png'
-    import { Button,Popup } from "vant"
+    import wangjia from '../assets/img/wanjiananliu.png';
+    import shuoming from '../assets/img/shuominganliu.png';
+    import xiangqing from '../assets/img/xiangqinganliu.png';
+    import fanhuei from '../assets/img/fanhueianliu.png';
+    import { Button,Popup } from "vant";
     export default {
         name: 'Home',
         components: {
+            popxiangqing,
+            popwangjia,
+            popshuoming,
             user,
             duzhuo,
             chouma,
@@ -271,7 +279,8 @@
    }
    .start-buttom>div{
        position: relative;
-       width: 50%;
+       /*width: 50%;*/
+       width: 100%;
        height: 100%;
        float: left;
    }
@@ -279,7 +288,8 @@
       position: absolute;
       bottom: 10%;
       width: 100%;
-      padding-bottom: 100%;
+      /*padding-bottom: 100%;*/
+      padding-bottom: 50%;
   }
   .start-buttom>div>div>div{
       position: absolute;
@@ -287,7 +297,10 @@
       bottom: 10%;
       left: 10%;
       right: 10%;
-      background: #a26c16;
+      /*background: #a26c16;*/
+      background-image: url("../assets/img/xutou.png");
+      background-size: 100% 100%;
+      background-position: center center;
   }
   .bottom{
       left: 15%;
