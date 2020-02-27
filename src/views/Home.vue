@@ -1,4 +1,5 @@
 <template>
+<!--    http://shouce.jb51.net/velocity/feature.html-->
   <div class="home">
 <!--      弹框-->
       <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming"><popshuoming></popshuoming></van-popup>
