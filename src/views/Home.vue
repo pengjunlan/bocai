@@ -9,6 +9,7 @@
       <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaishixiazhu"><kaishixiazhu></kaishixiazhu></van-popup>
       <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.tingzhixiazhu"><tingzhixiazhu></tingzhixiazhu></van-popup>
       <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaijiang"><kaijiang></kaijiang></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.dengdaixiiayiju"><dengdaixiiayiju></dengdaixiiayiju></van-popup>
 <!--      顶部-->
       <div class="top">
         <div>
@@ -103,6 +104,7 @@
     import kaishixiazhu from '../components/kaishixiazhu';
     import tingzhixiazhu from '../components/tingzhixiazhu';
     import kaijiang from '../components/kaijiang';
+    import dengdaixiiayiju from '../components/dengdaixiiayiju';
     import { Button,Popup } from "vant";
     import store from '../store'
     export default {
@@ -119,6 +121,7 @@
             duzhuo,
             chouma,
             qiangzhuang,
+            dengdaixiiayiju,
             [Button.name]:Button,
             [Popup.name]:Popup,
         },
@@ -167,7 +170,8 @@
                     qiangzhuang:true,
                     kaishixiazhu:false,
                     tingzhixiazhu:false,
-                    kaijiang:false
+                    kaijiang:false,
+                    dengdaixiiayiju:false,
                 },
                 //倒计时时间
                 timedata:5,
@@ -178,23 +182,35 @@
             }
         },
         methods: {
-            jieshukaijiang:function(){
+            //等待下一句
+            dengdaixiiayiju:function(){
+                this.popup.dengdaixiiayiju=true;
                 var e = this;
                 setTimeout(function(){
-                    e.touxiang.kaitype=false;
+                    e.popup.dengdaixiiayiju=false;
                     e.popup.qiangzhuang=true;
                 },this.atime)
             },
+            //结算开奖
+            jieshukaijiang:function(){
+                var e = this;
+                this.touxiang.kaitype=true;
+                setTimeout(function(){
+                    e.touxiang.kaitype=false;
+                    //e.popup.qiangzhuang=true;
+                    e.dengdaixiiayiju();
+                },this.atime)
+            },
+            //开奖
             kaijiang:function(){
                 this.popup.kaijiang=true;
                 var e = this;
                 setTimeout(function(){
                     e.popup.kaijiang=false;
-                    // e.kaijiang();
-                    e.touxiang.kaitype=true;
                     e.jieshukaijiang();
                 },this.atime)
             },
+            //停止下注
             tingzhixiazhu:function(){
                 this.popup.tingzhixiazhu=true;
                 var e = this;
@@ -203,6 +219,7 @@
                     e.kaijiang();
                 },this.atime)
             },
+            //开始
             start:function(){
                 var e = this;
                 e.popup.kaishixiazhu=true
@@ -214,6 +231,7 @@
 
                 },this.atime)
             },
+            //倒计时
             daojishi:function(){
                 this.isdiplaytime = true;
                 var e = this;
