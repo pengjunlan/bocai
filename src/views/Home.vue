@@ -7,6 +7,7 @@
       <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.qiangzhuang"><qiangzhuang></qiangzhuang></van-popup>
       <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaishixiazhu"><kaishixiazhu></kaishixiazhu></van-popup>
       <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.tingzhixiazhu"><tingzhixiazhu></tingzhixiazhu></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaijiang"><kaijiang></kaijiang></van-popup>
 <!--      顶部-->
       <div class="top">
         <div>
@@ -35,10 +36,10 @@
       <div class="left">
           <div>
               <div class="user" >
-                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key" jiazhufangmiang="left"></user>
+                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key" jiazhufangmiang="left" :data="val"></user>
               </div>
               <div class="my-user">
-                  <user class="mytou" jiazhufangmiang="left"></user>
+                  <user class="mytou" jiazhufangmiang="left" :data="touxiang.mytou"></user>
               </div>
           </div>
       </div>
@@ -46,7 +47,7 @@
       <div class="right">
           <div>
               <div class="user">
-                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key" jiazhufangmiang="right"></user>
+                  <user class="touxiang" v-for="(val,key) in touxiang.left" :key="key" jiazhufangmiang="right" :data="val"></user>
               </div>
               <div class="start-buttom">
 <!--                  <div>-->
@@ -100,6 +101,7 @@
     import qiangzhuang from '../components/qiangzhuang';
     import kaishixiazhu from '../components/kaishixiazhu';
     import tingzhixiazhu from '../components/tingzhixiazhu';
+    import kaijiang from '../components/kaijiang';
     import { Button,Popup } from "vant";
     import store from '../store'
     export default {
@@ -111,6 +113,7 @@
             popxiangqing,
             popwangjia,
             popshuoming,
+            kaijiang,
             user,
             duzhuo,
             chouma,
@@ -118,25 +121,36 @@
             [Button.name]:Button,
             [Popup.name]:Popup,
         },
+        watch:{
+          'touxiang.kaitype':function(val){
+              // console.log(odlval)
+              console.log(val)
+              for(var i in this.touxiang.right){
+                  this.touxiang.right[i]['kaitype']=val
+              }
+              for(var k in this.touxiang.left){
+                  this.touxiang.left[k]['kaitype']=val
+              }
+          }
+        },
         data:()=>{
             return{
                 img:{
                     wangjia,shuoming,xiangqing,fanhuei
                 },
                 touxiang:{
+                    kaitype:false,
                     left:[
-                        {},
-                        {},
-                        {}
+                        {name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1},
+                        {name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1},
+                        {name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1},
                     ],
                     right:[
-                        {},
-                        {},
-                        {}
+                        {name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1},
+                        {name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1},
+                        {name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1},
                     ],
-                    mytou:{
-
-                    }
+                    mytou:{name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1}
                 },
                 fama:[
                     {},
@@ -151,28 +165,47 @@
                     xiangqing:false,
                     qiangzhuang:true,
                     kaishixiazhu:false,
-                    tingzhixiazhu:false
+                    tingzhixiazhu:false,
+                    kaijiang:false
                 },
                 time:5,
                 isdiplaytime:false
             }
         },
-        watch:{
-            'popup.qiangzhuang':function(val){
-               if(val == false){
-                   this.popup.kaishixiazhu=true
-               }
-            }
-        },
         methods: {
+            jieshukaijiang:function(){
+                var e = this;
+                setTimeout(function(){
+                    e.touxiang.kaitype=false;
+                    e.start();
+                },1000)
+            },
+            kaijiang:function(){
+                this.popup.kaijiang=true;
+                var e = this;
+                setTimeout(function(){
+                    e.popup.kaijiang=false;
+                    // e.kaijiang();
+                    e.touxiang.kaitype=true;
+                    e.jieshukaijiang();
+                },1000)
+            },
             tingzhixiazhu:function(){
                 this.popup.tingzhixiazhu=true;
+                var e = this;
+                setTimeout(function(){
+                    e.popup.tingzhixiazhu=false;
+                    e.kaijiang();
+                },1000)
             },
             start:function(){
                 var e = this;
+                e.popup.kaishixiazhu=true
                 setTimeout(function(){
                     e.popup.kaishixiazhu=false
+                    e.time=5
                     e.daojishi()
+
                 },1000)
             },
             daojishi:function(){

@@ -5,22 +5,29 @@
         <div class="u">
             <div>
                 <div class="touxiang">
-                    <img src="../assets/img/touxiang/tou1.png" alt="">
+<!--                    <img src="../assets/img/touxiang/tou1.png" alt="">-->
+                    <img :src="tou[data.touxiang]" alt="">
                 </div>
             </div>
             <div class="username">
-                <div>asdfas</div>
+                <div>{{data.name}}</div>
             </div>
             <div class="qian">
-                <div>asdfasd</div>
+                <div>{{data.jie}}</div>
             </div>
-            <div class="jiazhu" :class="{jiazhuleft:jiazhufangmiang=='left',jiazhuright:jiazhufangmiang=='right'}">+<span>123456</span></div>
+            <div v-show="data.kaitype" class="jiazhu" :class="{jiazhuleft:jiazhufangmiang=='left',jiazhuright:jiazhufangmiang=='right'}"><span>{{data.kaijing}}</span></div>
         </div>
     </div>
 </template>
 
 <script>
+    //  {name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1},
     import popuserinfo from '../components/userinfo'
+    import tou1 from '../assets/img/touxiang/tou1.png'
+    import tou2 from '../assets/img/touxiang/tou2.png'
+    import tou3 from '../assets/img/touxiang/tou3.png'
+    import tou4 from '../assets/img/touxiang/tou4.png'
+    import tou5 from '../assets/img/touxiang/tou5.png'
     import { Popup } from "vant"
     export default {
         name: "uer",
@@ -32,10 +39,11 @@
           return{
               popup:{
                   userinfo:false,
-              }
+              },
+              tou:[tou1,tou2,tou3,tou4,tou5]
           }
         },
-        props:['jiazhu','jiazhufangmiang'],
+        props:['jiazhu','jiazhufangmiang','data'],
         methods:{
             userinfo:function(){
                 console.log(55)
