@@ -1,5 +1,6 @@
 <template>
     <div class="chouma">
+
         <div :style="{backgroundImage:'url('+img[data.jinge]+')'}"></div>
     </div>
 </template>

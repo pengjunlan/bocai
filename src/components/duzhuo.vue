@@ -3,7 +3,7 @@
         <div v-for="(val,key) in duzhuo" :key="key" :style="{height:(100/duzhuo.length)+'%'}">
             <div v-for="(v,k) in val" :key="k" :style="{width:(100/val.length)+'%'}">
                 <div>
-                    <dupan></dupan>
+                    <dupan :data="v"></dupan>
                 </div>
             </div>
         </div>
@@ -21,11 +21,11 @@
             return{
                 duzhuo:[
                     [
-                        []
+                        {xiazujine:0,zi:'和'}
                     ],
                     [
-                        [],
-                        []
+                        {xiazujine:0,zi:'小'},
+                        {xiazujine:0,zi:'大'}
                     ]
                 ]
             }

@@ -2,9 +2,9 @@
 <!--    http://shouce.jb51.net/velocity/feature.html-->
   <div class="home">
 <!--      弹框-->
-      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming"><popshuoming></popshuoming></van-popup>
-      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia"><popwangjia></popwangjia></van-popup>
-      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing"><popxiangqing></popxiangqing></van-popup>
+      <van-popup  :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming"><popshuoming></popshuoming></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia"><popwangjia></popwangjia></van-popup>
+      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing"><popxiangqing></popxiangqing></van-popup>
       <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.qiangzhuang"><qiangzhuang></qiangzhuang></van-popup>
       <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaishixiazhu"><kaishixiazhu></kaishixiazhu></van-popup>
       <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.tingzhixiazhu"><tingzhixiazhu></tingzhixiazhu></van-popup>
@@ -71,7 +71,7 @@
       <div class="bottom">
            <div class="fama" :style="{width:100/fama.length+'%'}" v-for="(val,key) in fama" :key="key">
                <div>
-                   <div>
+                   <div @click="xiazhuclick(val.jinge)">
                         <chouma :data="val"></chouma>
                    </div>
                </div>
@@ -174,14 +174,21 @@
                     dengdaixiiayiju:false,
                 },
                 //倒计时时间
+                // timedata:60,
                 timedata:5,
                 time:0,
                 // 动画时间
-                atime:3000,
-                isdiplaytime:false
+                atime:2000,
+                isdiplaytime:false,
+                xuanzejine:0
             }
         },
         methods: {
+            //下注事件
+            xiazhuclick:function(jinge){
+                console.log(jinge)
+                this.xuanzejine=jinge
+            },
             //等待下一句
             dengdaixiiayiju:function(){
                 this.popup.dengdaixiiayiju=true;
@@ -212,6 +219,15 @@
             },
             //停止下注
             tingzhixiazhu:function(){
+                for(var i in this.$children){
+                    this.$children[i].$el.className
+                    if(this.$children[i].$el.className == 'duzuo'){
+                        for(var k in this.$children[i].$children){
+                            //清除赌桌盘的筹码
+                            this.$children[i].$children[k].shouma=[];
+                        }
+                    }
+                }
                 this.popup.tingzhixiazhu=true;
                 var e = this;
                 setTimeout(function(){

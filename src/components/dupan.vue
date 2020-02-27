@@ -3,7 +3,7 @@
         <div>
             <div>
                 <img  class="jinbi" src="../assets/img/xiaojinbi.png" alt="">
-                <span>asdfasdf</span>
+                <span>{{data.xiazujine}}</span>
             </div>
 <!--            <div>-->
 <!--                <img  class="jinbi" src="../assets/img/xiaojinbi.png" alt="">-->
@@ -12,15 +12,56 @@
 <!--                <div>5</div>-->
 <!--            </div>-->
         </div>
-        <div>
-            大
+        <div class="choumazuo" @click="xiazhu()">
+            {{data.zi}}
+            <div class="chouma" :style="{top:v.top+'%',left:v.left+'%'}" v-for="(v,k) in shouma" :key="k">
+                <chouma :data="{jinge:v.jinge}"></chouma>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    import chouma from "./chouma";
+    // import store from '../store'
     export default {
-        name: "dupan"
+        name: "dupan",
+        components:{
+            chouma
+        },
+        props:['data'],
+        data(){
+            return {
+                shouma:[
+                    {jinge:50,top:'10',left:'6'}
+                ]
+            }
+        },
+        watch:{
+            'shouma':function(val){
+                this.data.xiazujine=0
+                for (var i = 0 ;i < val.length;i++){
+                    // console.log(val[i].jinge)
+                    this.data.xiazujine +=val[i].jinge
+                }
+            }
+        },
+        methods:{
+            xiazhu(){
+                if(this.$parent.$parent.xuanzejine <=0){
+                    return false;
+                }
+                // console.log(this.$store.state.jine)
+                console.log(this.$parent.$parent.xuanzejine)
+                var top=Math.round(Math.random()*80)+10;
+                var left = Math.round(Math.random()*80)+10;
+                this.shouma.push({
+                    jinge:this.$parent.$parent.xuanzejine,
+                    top:top,
+                    left:left
+                })
+            }
+        }
     }
 </script>
 
@@ -80,4 +121,47 @@
         /*text-shadow:5px 5px 10px #5a545c;*/
         background: #f3dda8;
     }
+    .choumazuo{
+        position: relative;
+    }
+    .chouma{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        animation: myfirst 1s;
+        /*-moz-animation: myfirst 1s;	!* Firefox *!*/
+        /*-webkit-animation: myfirst 1s;	!* Safari 和 Chrome *!*/
+        /*-o-animation: myfirst 1s;	!* Opera *!*/
+    }
+    @keyframes myfirst
+    {
+        from {
+            width: 50px;
+            height: 50px;
+        }
+        to {
+            height: 25px;
+            width: 25px;
+        }
+    }
+
+    /*@-moz-keyframes myfirst !* Firefox *!*/
+    /*{*/
+    /*    from {background: red;}*/
+    /*    to {background: yellow;}*/
+    /*}*/
+
+    /*@-webkit-keyframes myfirst !* Safari 和 Chrome *!*/
+    /*{*/
+    /*    from {background: red;}*/
+    /*    to {background: yellow;}*/
+    /*}*/
+
+    /*@-o-keyframes myfirst !* Opera *!*/
+    /*{*/
+    /*    from {background: red;}*/
+    /*    to {background: yellow;}*/
+    /*}*/
 </style>
