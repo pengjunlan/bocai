@@ -1,13 +1,13 @@
 <template>
   <div class="home">
 <!--      弹框-->
-      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming"><popshuoming></popshuoming></van-popup>
-      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia"><popwangjia></popwangjia></van-popup>
-      <van-popup :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing"><popxiangqing></popxiangqing></van-popup>
-      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.qiangzhuang"><qiangzhuang></qiangzhuang></van-popup>
-      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaishixiazhu"><kaishixiazhu></kaishixiazhu></van-popup>
-      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.tingzhixiazhu"><tingzhixiazhu></tingzhixiazhu></van-popup>
-      <van-popup :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaijiang"><kaijiang></kaijiang></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%' }" v-model="popup.shuoming"><popshuoming></popshuoming></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%' }" v-model="popup.wangjia"><popwangjia></popwangjia></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%' }" v-model="popup.xiangqing"><popxiangqing></popxiangqing></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.qiangzhuang"><qiangzhuang></qiangzhuang></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaishixiazhu"><kaishixiazhu></kaishixiazhu></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.tingzhixiazhu"><tingzhixiazhu></tingzhixiazhu></van-popup>
+      <van-popup :close-on-click-overlay="false" :style="{ height: '50%',width:'50%',background:'rgba(0,0,0,0)'}" v-model="popup.kaijiang"><kaijiang></kaijiang></van-popup>
 <!--      顶部-->
       <div class="top">
         <div>
@@ -70,7 +70,7 @@
            <div class="fama" :style="{width:100/fama.length+'%'}" v-for="(val,key) in fama" :key="key">
                <div>
                    <div>
-                        <chouma></chouma>
+                        <chouma :data="val"></chouma>
                    </div>
                </div>
            </div>
@@ -153,11 +153,11 @@
                     mytou:{name:'asdfasd',jie:'20114',kaijing:'+458',kaitype:false,touxiang:1}
                 },
                 fama:[
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
+                    {jinge:1},
+                    {jinge:10},
+                    {jinge:50},
+                    {jinge:100},
+                    {jinge:500},
                 ],
                 popup:{
                     shuoming:false,
@@ -168,7 +168,11 @@
                     tingzhixiazhu:false,
                     kaijiang:false
                 },
-                time:5,
+                //倒计时时间
+                timedata:5,
+                time:0,
+                // 动画时间
+                atime:3000,
                 isdiplaytime:false
             }
         },
@@ -177,8 +181,8 @@
                 var e = this;
                 setTimeout(function(){
                     e.touxiang.kaitype=false;
-                    e.start();
-                },1000)
+                    e.popup.qiangzhuang=true;
+                },this.atime)
             },
             kaijiang:function(){
                 this.popup.kaijiang=true;
@@ -188,7 +192,7 @@
                     // e.kaijiang();
                     e.touxiang.kaitype=true;
                     e.jieshukaijiang();
-                },1000)
+                },this.atime)
             },
             tingzhixiazhu:function(){
                 this.popup.tingzhixiazhu=true;
@@ -196,17 +200,18 @@
                 setTimeout(function(){
                     e.popup.tingzhixiazhu=false;
                     e.kaijiang();
-                },1000)
+                },this.atime)
             },
             start:function(){
                 var e = this;
                 e.popup.kaishixiazhu=true
                 setTimeout(function(){
                     e.popup.kaishixiazhu=false
-                    e.time=5
+                    //倒计时的时间
+                    e.time=e.timedata
                     e.daojishi()
 
-                },1000)
+                },this.atime)
             },
             daojishi:function(){
                 this.isdiplaytime = true;
