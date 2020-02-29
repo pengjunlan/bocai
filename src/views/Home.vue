@@ -249,17 +249,17 @@
             },
             //倒计时
             daojishi:function(){
-                this.isdiplaytime = true;
-                var e = this;
-                setTimeout(function(){
-                    if(e.time>1){
-                        e.time--
-                        e.daojishi()
-                    }else{
-                        e.isdiplaytime=false;
-                        e.tingzhixiazhu();
-                    }
-                },1000)
+                // this.isdiplaytime = true;
+                // var e = this;
+                // setTimeout(function(){
+                //     if(e.time>1){
+                //         e.time--
+                //         e.daojishi()
+                //     }else{
+                //         e.isdiplaytime=false;
+                //         e.tingzhixiazhu();
+                //     }
+                // },1000)
             },
             shuoming:function(){
                 this.popup.shuoming = true
